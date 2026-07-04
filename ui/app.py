@@ -22,11 +22,21 @@ Run with:  streamlit run ui/app.py
 from __future__ import annotations
 
 import logging
+import sys
+from pathlib import Path
 
 import streamlit as st
 
-import config
-from config import DISCLAIMER
+# When launched via `streamlit run ui/app.py` (e.g. on Streamlit Community
+# Cloud), Streamlit puts the script's own directory (ui/) on sys.path rather
+# than the repo root, so first-party imports (`config`, `rag`, `scheduler`,
+# `vectorstore`) fail with ModuleNotFoundError. Add the repo root explicitly.
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+import config  # noqa: E402  (import after sys.path bootstrap above)
+from config import DISCLAIMER  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
