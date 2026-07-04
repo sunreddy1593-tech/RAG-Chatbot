@@ -1,6 +1,9 @@
-"""Embedding model wrapper around BAAI/bge-large-en-v1.5 (local, no API key).
+"""Embedding model wrapper around the BGE retrieval models (local, no API key).
 
-Phase 3 implementation.
+Phase 3 implementation. The active model is ``config.EMBEDDING_MODEL`` — by
+default ``bge-small-en-v1.5`` (384-dim) so the app fits low-resource hosts like
+the Streamlit Community Cloud free tier; ``bge-large-en-v1.5`` (1024-dim) can be
+selected on a bigger host for higher recall (rebuild the index to match).
 
 BGE is an *asymmetric* retrieval model, so corpus passages and search queries
 are encoded differently:

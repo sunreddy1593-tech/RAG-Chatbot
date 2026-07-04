@@ -76,8 +76,9 @@ ONLINE (answer a query)
                                                      ─▶ formatter (≤3 sent., 1 cite, footer) ─▶ UI
 ```
 
-- **Embeddings:** `BAAI/bge-large-en-v1.5` (local, 1024-dim, **no API key**;
-  falls back to `bge-small-en-v1.5` / 384-dim).
+- **Embeddings:** `BAAI/bge-small-en-v1.5` (local, 384-dim, **no API key**;
+  default for low-resource/free-tier hosts). Swap to `bge-large-en-v1.5`
+  (1024-dim, higher recall) on a bigger host and rebuild the index.
 - **Vector store:** ChromaDB (cosine space), persisted to `vectorstore/index/`.
 - **LLM:** Groq API — primary `llama-3.3-70b-versatile`, fallback `llama3-8b-8192`.
 - **Compliance:** three layers — intent classifier → strict system prompt →
@@ -94,7 +95,8 @@ See [`Architecture.md`](./Architecture.md) for the full design and
 - **Python 3.10+** (tested on 3.14, `win_amd64`).
 - A free **Groq API key** — get one at <https://console.groq.com/keys>.
   (Only required for answer *generation*; embedding/retrieval run fully offline.)
-- ~2–3 GB disk for the ML dependencies (`torch`, `transformers`, `sentence-transformers`).
+- ~2 GB disk for the ML dependencies (`torch`, `transformers`,
+  `sentence-transformers`); the default `bge-small` weights add only ~130 MB.
 
 > **Windows note:** `torch` and `pymupdf` load native DLLs that require the
 > **Microsoft Visual C++ Redistributable (x64)**. If you hit a `WinError 126` /
@@ -254,7 +256,7 @@ All tunables live in [`config.py`](./config.py) and can be overridden via `.env`
 | `GROQ_API_KEY` | — | Groq key (required only for generation) |
 | `GROQ_MODEL` | `llama-3.3-70b-versatile` | Primary LLM |
 | `GROQ_MODEL_FALLBACK` | `llama3-8b-8192` | Degrade target on quota/429 |
-| `EMBEDDING_MODEL` | `BAAI/bge-large-en-v1.5` | Local embedding model |
+| `EMBEDDING_MODEL` | `BAAI/bge-small-en-v1.5` | Local embedding model (use `bge-large-en-v1.5` on a bigger host + rebuild) |
 | `LLM_MAX_TOKENS` | `256` | Completion cap (≤3-sentence answers) |
 | `MAX_CONTEXT_CHUNKS` / `MAX_CONTEXT_TOKENS` | `3` / `2000` | Per-call context budget |
 | `GROQ_RPM` / `GROQ_RPD` / `GROQ_TPM` / `GROQ_TPD` | `30` / `1000` / `12000` / `100000` | Free-tier rate limits (raise for paid tier) |
@@ -375,11 +377,12 @@ commits**, so the running app serves the fresh index with no manual step. For th
 to work, give the workflow the `GROQ_API_KEY` repo secret and leave its default
 `contents: write` permission (already set in `refresh.yml`).
 
-> **Free-tier memory note:** `bge-large-en-v1.5` (~1.3 GB + `torch`) can exceed the
-> Streamlit Community Cloud free-tier RAM. If the app OOMs on boot, set
-> `EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"` in **Secrets** *and* rebuild/commit
-> the index with that model (the embedding dimension must match the index — the
-> loader refuses a mismatched index by design).
+> **Free-tier memory note:** the default embedding model is **`bge-small-en-v1.5`**
+> (384-dim, ~130 MB) specifically so the app fits the Streamlit Community Cloud
+> free-tier RAM. For higher recall on a bigger host, set
+> `EMBEDDING_MODEL = "BAAI/bge-large-en-v1.5"` in **Secrets** *and* rebuild/commit
+> the index with that model — the embedding dimension is locked to the index, so
+> the loader refuses a mismatched index by design.
 
 ### Docker
 

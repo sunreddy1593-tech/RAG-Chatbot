@@ -76,9 +76,13 @@ RESPONSE_CACHE_SIZE = int(os.getenv("RESPONSE_CACHE_SIZE", "256"))
 # --------------------------------------------------------------------------- #
 # Embeddings (BGE via sentence-transformers)
 # --------------------------------------------------------------------------- #
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-large-en-v1.5")
+# Default is bge-SMALL (384-dim, ~130 MB) so the app fits the Streamlit
+# Community Cloud free-tier RAM. Set EMBEDDING_MODEL=BAAI/bge-large-en-v1.5
+# (1024-dim, ~1.3 GB, higher recall) on a bigger host — but the index must be
+# rebuilt to match, since the dimension is locked to the index (edge 3.2/3.5).
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-small-en-v1.5")
 EMBEDDING_MODEL_FALLBACK = "BAAI/bge-small-en-v1.5"
-EMBEDDING_DIM = 1024  # bge-large-en-v1.5 -> 1024 dims (bge-small -> 384)
+EMBEDDING_DIM = 384  # bge-small-en-v1.5 -> 384 dims (bge-large -> 1024)
 EMBEDDING_MAX_TOKENS = 512  # BGE input window; chunks are sized to fit this
 EMBED_BATCH_SIZE = 32  # batched encoding to bound memory (edge 3.6)
 

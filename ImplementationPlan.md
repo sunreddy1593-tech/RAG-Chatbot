@@ -132,6 +132,8 @@ The Phase 2 output is **669 chunks**, each already sized in true BGE tokens (min
 
 > **Distribution note (drives Phase 4, not embedding):** the chunk set is skewed — `Shared (HDFC AMC)` ≈ 465 chunks (69%) and the Small Cap SID ≈ 123, while the other four schemes have only 10–16 chunks each. Embedding treats every chunk equally; **scheme-scoped metadata filtering at query time** (Phase 4) is what prevents the shared factsheet from diluting scheme-specific results (edge 2.8 / 5.2). No per-scheme weighting is applied at embed time.
 
+> **Deployment note (default model switched to bge-small):** the figures above were measured with `bge-large-en-v1.5` (1024-dim). For the Streamlit Community Cloud free tier (RAM-limited), `config.EMBEDDING_MODEL` now **defaults to `bge-small-en-v1.5` (384-dim, ~130 MB)**, and the Phase 10 workflow rebuilds/commits a **384-dim** index to match. The two BGE v1.5 models share the same tokenizer and 512-token window, so the Phase 2 chunk set (669 chunks) is unchanged; only the vector dimension differs. `bge-large` remains available for higher recall on a bigger host — set `EMBEDDING_MODEL` and rebuild, since the dimension is locked to the index (edge 3.2/3.5).
+
 **Deliverable:** Persisted ChromaDB index.
 
 **Acceptance Criteria:** Index loads from disk; count of vectors == count of chunks (669); sample similarity query returns relevant chunks. *(Met: 669/669 vectors, cosine/1024-dim; query "expense ratio of HDFC Large Cap Fund" returns the Large Cap factsheet as top hit.)*
