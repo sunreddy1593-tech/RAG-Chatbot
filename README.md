@@ -356,16 +356,30 @@ The app is a standard Streamlit application. Two common options:
 
 ### Streamlit Community Cloud
 
-1. Push the repo to GitHub.
-2. Create a new app on <https://share.streamlit.io> pointing at `ui/app.py`.
-3. Add `GROQ_API_KEY` under **App settings → Secrets**.
-4. Ensure a built index is available: either commit `vectorstore/index/` (it may
-   be `.gitignore`d by default) **or** run the
-   [build steps](#building-the-corpus--index-from-scratch) as part of your deploy.
-5. To keep the deployed index fresh, enable the Phase 10
-   [GitHub Actions scheduler](#automated-daily-refresh-phase-10) and have your
-   deploy consume its published index artifact (or point the workflow at a
-   data-branch commit / object-storage push your app reads on boot).
+1. Push the repo to GitHub (done — the app deploys straight from `main`).
+2. Create a new app on <https://share.streamlit.io> pointing at `ui/app.py` on the
+   `main` branch.
+3. Add `GROQ_API_KEY` under **App settings → Secrets** (paste it in TOML form:
+   `GROQ_API_KEY = "gsk_..."`).
+4. The vector index (`vectorstore/index/`) is **tracked in git**, so it deploys
+   with the repo — no separate build step is needed on Streamlit. (If the repo has
+   no index yet, run the [scheduler](#automated-daily-refresh-phase-10) once — see
+   below — or the [build steps](#building-the-corpus--index-from-scratch) locally,
+   then push.)
+
+**Keeping the deployed app fresh (automatic):** the Phase 10
+[GitHub Actions scheduler](#automated-daily-refresh-phase-10) rebuilds the index
+daily and, when the corpus actually changed, **commits it back to `main`**.
+Streamlit Community Cloud watches the connected branch and **auto-reboots on new
+commits**, so the running app serves the fresh index with no manual step. For this
+to work, give the workflow the `GROQ_API_KEY` repo secret and leave its default
+`contents: write` permission (already set in `refresh.yml`).
+
+> **Free-tier memory note:** `bge-large-en-v1.5` (~1.3 GB + `torch`) can exceed the
+> Streamlit Community Cloud free-tier RAM. If the app OOMs on boot, set
+> `EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"` in **Secrets** *and* rebuild/commit
+> the index with that model (the embedding dimension must match the index — the
+> loader refuses a mismatched index by design).
 
 ### Docker
 

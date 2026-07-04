@@ -19,8 +19,10 @@ concurrency:
   group: corpus-refresh
   cancel-in-progress: false
 
+# The refresh commits the rebuilt index back to the deployed branch, which is
+# what triggers a Streamlit Community Cloud redeploy — so it needs write access.
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   refresh:
@@ -54,25 +56,47 @@ jobs:
           python -m scheduler.refresh
           ${{ (github.event_name == 'workflow_dispatch' && inputs.force_reindex) && '--force' || '' }}
 
-      # The runner filesystem is ephemeral, so publish the rebuilt index + corpus
-      # as an artifact for the live app to consume (swap a data branch / object
-      # storage push in here for a persistent deployment target).
-      - name: Publish refreshed corpus + index
+      # Publish for Streamlit: commit the rebuilt index (+ corpus registry +
+      # freshness file) back to the deployed branch. Streamlit Community Cloud
+      # watches the repo and auto-reboots on new commits, so the running app
+      # picks up the fresh index. Only commits when the corpus actually changed
+      # (status == "ok"); a no-change run publishes nothing (honours idempotency).
+      # This workflow only triggers on schedule/dispatch (never on push), so the
+      # commit cannot re-trigger it — no loop.
+      - name: Publish refreshed index to repo (triggers Streamlit redeploy)
+        if: success()
+        run: |
+          status=$(python -c "import json; print(json.load(open('data/last_refresh.json')).get('status',''))" 2>/dev/null || echo "")
+          echo "Refresh status: $status"
+          if [ "$status" != "ok" ]; then
+            echo "Corpus unchanged (status=$status) — nothing to publish."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vectorstore/index data/metadata.json data/last_refresh.json
+          if git diff --cached --quiet; then
+            echo "No file changes to commit."
+            exit 0
+          fi
+          git commit -m "chore(refresh): update corpus index [skip ci]"
+          git push origin "HEAD:${{ github.ref_name }}"
+
+      # Also keep the rebuilt index downloadable as an artifact for inspection.
+      - name: Upload index artifact (inspection)
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: corpus-index
           path: |
             vectorstore/index/
-            data/metadata.json
-            data/processed/
             data/last_refresh.json
           retention-days: 14
-          if-no-files-found: error
+          if-no-files-found: ignore
 
-      # On failure, still surface the status file so the run's cause is visible.
-      # The job's non-zero exit marks the run failed and triggers GitHub's
-      # standard failure notification to the workflow's watchers.
+      # On failure, surface the status file so the run's cause is visible. The
+      # job's non-zero exit marks the run failed and fires GitHub's standard
+      # failure notification to the workflow's watchers.
       - name: Publish refresh status (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
