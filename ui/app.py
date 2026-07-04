@@ -22,6 +22,7 @@ Run with:  streamlit run ui/app.py
 from __future__ import annotations
 
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -35,7 +36,18 @@ _ROOT = Path(__file__).resolve().parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-import config  # noqa: E402  (import after sys.path bootstrap above)
+# Bridge Streamlit secrets -> environment BEFORE importing config: config reads
+# keys like GROQ_API_KEY via os.getenv at import time, and Streamlit doesn't
+# reliably expose secrets as env vars before that. Secrets set in the app's
+# Secrets box (TOML, e.g. `GROQ_API_KEY = "gsk_..."`) are copied here.
+try:
+    for _key, _val in st.secrets.items():
+        if isinstance(_val, (str, int, float, bool)) and _key not in os.environ:
+            os.environ[_key] = str(_val)
+except Exception:  # no secrets configured (e.g. local dev without secrets.toml)
+    pass
+
+import config  # noqa: E402  (import after sys.path + secrets bootstrap above)
 from config import DISCLAIMER  # noqa: E402
 
 logger = logging.getLogger(__name__)
