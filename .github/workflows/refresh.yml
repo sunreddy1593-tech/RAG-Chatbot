@@ -1,0 +1,82 @@
+name: Scheduled Corpus Refresh
+
+# Phase 10 — the CI runner IS the scheduler, so no always-on worker is needed.
+# GitHub cron is UTC-only, so the desired 10:30 AM IST cadence is encoded as its
+# UTC equivalent (05:00 UTC). workflow_dispatch allows manual / one-off runs.
+on:
+  schedule:
+    - cron: "0 5 * * *"   # 05:00 UTC = 10:30 AM IST, daily
+  workflow_dispatch:
+    inputs:
+      force_reindex:
+        description: "Rebuild the index even if the corpus is unchanged"
+        type: boolean
+        default: false
+
+# CI-level single-flight: never run two refreshes at once. Queue rather than
+# cancel so an in-progress rebuild is allowed to finish and publish.
+concurrency:
+  group: corpus-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      # Injected from repo secrets; never committed. Optional for the refresh
+      # itself (scrape/parse/chunk/index need no LLM), but present so the run
+      # environment matches production.
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright browser
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run corpus refresh
+        run: >-
+          python -m scheduler.refresh
+          ${{ (github.event_name == 'workflow_dispatch' && inputs.force_reindex) && '--force' || '' }}
+
+      # The runner filesystem is ephemeral, so publish the rebuilt index + corpus
+      # as an artifact for the live app to consume (swap a data branch / object
+      # storage push in here for a persistent deployment target).
+      - name: Publish refreshed corpus + index
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: corpus-index
+          path: |
+            vectorstore/index/
+            data/metadata.json
+            data/processed/
+            data/last_refresh.json
+          retention-days: 14
+          if-no-files-found: error
+
+      # On failure, still surface the status file so the run's cause is visible.
+      # The job's non-zero exit marks the run failed and triggers GitHub's
+      # standard failure notification to the workflow's watchers.
+      - name: Publish refresh status (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: refresh-status-failed
+          path: data/last_refresh.json
+          if-no-files-found: ignore

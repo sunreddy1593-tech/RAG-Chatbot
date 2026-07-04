@@ -1,0 +1,110 @@
+{
+  "description": "Curated allowlist of official public sources for the HDFC Mutual Fund FAQ corpus. Only domains in config.ALLOWED_DOMAINS are permitted. render: static | js | pdf | auto. NOTE: www.hdfcfund.com is protected by Akamai and blocks automated access (403 / Access Denied), so HDFC documents are sourced from the AMC's public S3 file host (files.hdfcfund.com) and SEBI's official filing repository instead.",
+  "sources": [
+    {
+      "scheme": "HDFC Gold ETF Fund of Fund - Direct Plan Growth",
+      "category": "Commodity (Gold)",
+      "doc_type": "scheme_page",
+      "render": "js",
+      "url": "https://groww.in/mutual-funds/hdfc-gold-etf-fund-of-fund-direct-plan-growth"
+    },
+    {
+      "scheme": "HDFC Large Cap Fund - Direct Growth",
+      "category": "Large Cap Equity",
+      "doc_type": "scheme_page",
+      "render": "js",
+      "url": "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth"
+    },
+    {
+      "scheme": "HDFC Small Cap Fund - Direct Growth",
+      "category": "Small Cap Equity",
+      "doc_type": "scheme_page",
+      "render": "js",
+      "url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth"
+    },
+    {
+      "scheme": "HDFC Silver ETF FoF - Direct Growth",
+      "category": "Commodity (Silver)",
+      "doc_type": "scheme_page",
+      "render": "js",
+      "url": "https://groww.in/mutual-funds/hdfc-silver-etf-fof-direct-growth"
+    },
+    {
+      "scheme": "HDFC Mid Cap Fund - Direct Growth",
+      "category": "Mid Cap Equity",
+      "doc_type": "scheme_page",
+      "render": "js",
+      "url": "https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth"
+    },
+    {
+      "scheme": "HDFC Large Cap Fund - Direct Growth",
+      "category": "Large Cap Equity",
+      "doc_type": "factsheet",
+      "render": "pdf",
+      "url": "https://files.hdfcfund.com/s3fs-public/Others/2025-06/Fund%20Facts%20-%20HDFC%20Large%20Cap%20Fund_May%2025.pdf"
+    },
+    {
+      "scheme": "HDFC Mid Cap Fund - Direct Growth",
+      "category": "Mid Cap Equity",
+      "doc_type": "factsheet",
+      "render": "pdf",
+      "url": "https://files.hdfcfund.com/s3fs-public/Others/2025-01/Fund%20Facts%20-%20HDFC%20Mid-Cap%20Opportunities%20Fund_Jan%2025.pdf"
+    },
+    {
+      "scheme": "Shared (HDFC AMC)",
+      "category": "AMC Reference",
+      "doc_type": "factsheet",
+      "render": "pdf",
+      "url": "https://files.hdfcfund.com/s3fs-public/2026-04/HDFC%20MF%20Factsheet%20-%20March%202026.pdf"
+    },
+    {
+      "scheme": "HDFC Small Cap Fund - Direct Growth",
+      "category": "Small Cap Equity",
+      "doc_type": "sid",
+      "render": "pdf",
+      "url": "https://www.sebi.gov.in/sebi_data/mutualfundfile/nov-2024/1732795104038.pdf"
+    },
+    {
+      "scheme": "Shared (AMFI)",
+      "category": "Regulatory Guidance",
+      "doc_type": "guidance",
+      "render": "auto",
+      "url": "https://www.amfiindia.com/investor/knowledge-center-info?zoneName=expenseRatio"
+    },
+    {
+      "scheme": "Shared (AMFI)",
+      "category": "Regulatory Guidance",
+      "doc_type": "guidance",
+      "render": "auto",
+      "url": "https://www.amfiindia.com/investor-corner/knowledge-center/nav-sale-repurchase-price.html"
+    },
+    {
+      "scheme": "Shared (SEBI)",
+      "category": "Regulatory Guidance",
+      "doc_type": "faq",
+      "render": "pdf",
+      "url": "https://www.sebi.gov.in/sebi_data/faqfiles/sep-2024/1727242783639.pdf"
+    },
+    {
+      "scheme": "Shared (SEBI)",
+      "category": "Investor Education",
+      "doc_type": "guidance",
+      "render": "auto",
+      "url": "https://investor.sebi.gov.in/understanding_mf.html"
+    },
+    {
+      "scheme": "Shared (SEBI)",
+      "category": "Investor Education",
+      "doc_type": "guidance",
+      "render": "auto",
+      "url": "https://investor.sebi.gov.in/iematerial.html"
+    },
+    {
+      "scheme": "Shared (SEBI)",
+      "category": "Investor Education",
+      "doc_type": "guidance",
+      "render": "auto",
+      "url": "https://investor.sebi.gov.in/exit_load.html"
+    }
+  ]
+}
