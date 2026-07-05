@@ -6,13 +6,13 @@
     "category": "Commodity (Gold)",
     "doc_type": "scheme_page",
     "render": "js",
-    "scraped_at": "2026-06-28T09:52:15+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:12+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\hdfc-gold-etf-fund-of-fund-direct-plan-growth__scheme_page__hdfc-gold-etf-fund-of-fund-direct-plan-growth.html",
-    "bytes": 430913,
+    "file": "data/raw/faq/hdfc-gold-etf-fund-of-fund-direct-plan-growth__scheme_page__hdfc-gold-etf-fund-of-fund-direct-plan-growth.html",
+    "bytes": 432272,
     "text_chars": 19333,
-    "content_sha256": "5056a92302f19016421812c5426b74b9abb856301ffe3a08a5a5359476af0e6d"
+    "content_sha256": "0252bf461618253f87f0540fe26e27be6ba9df5e818af42488f09f28e81a2723"
   },
   {
     "url": "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",
@@ -21,13 +21,13 @@
     "category": "Large Cap Equity",
     "doc_type": "scheme_page",
     "render": "js",
-    "scraped_at": "2026-06-28T09:52:25+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:18+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\hdfc-large-cap-fund-direct-growth__scheme_page__hdfc-large-cap-fund-direct-growth.html",
-    "bytes": 490262,
+    "file": "data/raw/faq/hdfc-large-cap-fund-direct-growth__scheme_page__hdfc-large-cap-fund-direct-growth.html",
+    "bytes": 490297,
     "text_chars": 20760,
-    "content_sha256": "e978c1bb177571acacada0a34c900c83171a2931c7749bce0e753b8d07b7d136"
+    "content_sha256": "add1340fdd4a623637b092d20877b3bf28816f772329f4a9d06b1f817eaf4dc6"
   },
   {
     "url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth",
@@ -36,13 +36,13 @@
     "category": "Small Cap Equity",
     "doc_type": "scheme_page",
     "render": "js",
-    "scraped_at": "2026-06-28T09:52:32+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:24+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\hdfc-small-cap-fund-direct-growth__scheme_page__hdfc-small-cap-fund-direct-growth.html",
+    "file": "data/raw/faq/hdfc-small-cap-fund-direct-growth__scheme_page__hdfc-small-cap-fund-direct-growth.html",
     "bytes": 527172,
     "text_chars": 22790,
-    "content_sha256": "b86a9f3a15ce5aedce2ac7cd19d1d877038043c7f74cb1a80a77d32050a2b6fc"
+    "content_sha256": "775dce3ad56b9e0cf2c33ca7269234fe21b8986493e3782d32e547d4cac23f40"
   },
   {
     "url": "https://groww.in/mutual-funds/hdfc-silver-etf-fof-direct-growth",
@@ -51,13 +51,13 @@
     "category": "Commodity (Silver)",
     "doc_type": "scheme_page",
     "render": "js",
-    "scraped_at": "2026-06-28T09:52:40+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:30+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\hdfc-silver-etf-fof-direct-growth__scheme_page__hdfc-silver-etf-fof-direct-growth.html",
-    "bytes": 423915,
+    "file": "data/raw/faq/hdfc-silver-etf-fof-direct-growth__scheme_page__hdfc-silver-etf-fof-direct-growth.html",
+    "bytes": 425676,
     "text_chars": 19148,
-    "content_sha256": "ee354899028c2f72e0bdaf53cac240c66ccfb67594832f1e391a3e549c0b4310"
+    "content_sha256": "6495d793219a280e4f57e65f7b29354eb2a1cee7ec13eafe94f9a7d2fbf39266"
   },
   {
     "url": "https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth",
@@ -66,13 +66,13 @@
     "category": "Mid Cap Equity",
     "doc_type": "scheme_page",
     "render": "js",
-    "scraped_at": "2026-06-28T09:52:46+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:35+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\hdfc-mid-cap-fund-direct-growth__scheme_page__hdfc-mid-cap-fund-direct-growth.html",
-    "bytes": 518788,
+    "file": "data/raw/faq/hdfc-mid-cap-fund-direct-growth__scheme_page__hdfc-mid-cap-fund-direct-growth.html",
+    "bytes": 518736,
     "text_chars": 22041,
-    "content_sha256": "bda8bf4072d77b7ab23adbcf900298d51904c36eac75ecb6b0c5bef347fd5ce5"
+    "content_sha256": "88528dc4063f4bee532bf0e9a716ee100501e3b291e57e47e5b7c49e91a6135f"
   },
   {
     "url": "https://files.hdfcfund.com/s3fs-public/Others/2025-06/Fund%20Facts%20-%20HDFC%20Large%20Cap%20Fund_May%2025.pdf",
@@ -81,10 +81,10 @@
     "category": "Large Cap Equity",
     "doc_type": "factsheet",
     "render": "pdf",
-    "scraped_at": "2026-06-28T09:52:54+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:41+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\factsheets\\hdfc-large-cap-fund-direct-growth__factsheet__fund20facts20-20hdfc20large20cap20fund-may2025.pdf",
+    "file": "data/raw/factsheets/hdfc-large-cap-fund-direct-growth__factsheet__fund20facts20-20hdfc20large20cap20fund-may2025.pdf",
     "bytes": 398913,
     "text_chars": null,
     "content_sha256": "263ef94fb33b154833616b1bb5d9efcdb6f3eee68fbf0e5cedafc4bc2e518333"
@@ -96,10 +96,10 @@
     "category": "Mid Cap Equity",
     "doc_type": "factsheet",
     "render": "pdf",
-    "scraped_at": "2026-06-28T09:52:54+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:42+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\factsheets\\hdfc-mid-cap-fund-direct-growth__factsheet__fund20facts20-20hdfc20mid-cap20opportunities20fund-jan2025.pdf",
+    "file": "data/raw/factsheets/hdfc-mid-cap-fund-direct-growth__factsheet__fund20facts20-20hdfc20mid-cap20opportunities20fund-jan2025.pdf",
     "bytes": 385557,
     "text_chars": null,
     "content_sha256": "98b7d85d8fde09670d33b6c492befac3426967b04516746c87536c2a5a5948ca"
@@ -111,10 +111,10 @@
     "category": "AMC Reference",
     "doc_type": "factsheet",
     "render": "pdf",
-    "scraped_at": "2026-06-28T09:52:55+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:43+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\factsheets\\shared-hdfc-amc__factsheet__hdfc20mf20factsheet20-20march202026.pdf",
+    "file": "data/raw/factsheets/shared-hdfc-amc__factsheet__hdfc20mf20factsheet20-20march202026.pdf",
     "bytes": 7044083,
     "text_chars": null,
     "content_sha256": "c29f01244ffc32aa7f536bc66475d638c2e303b5b7f904dd7e6b9252ca538cca"
@@ -126,10 +126,10 @@
     "category": "Small Cap Equity",
     "doc_type": "sid",
     "render": "pdf",
-    "scraped_at": "2026-06-28T09:52:56+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:44+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\sid\\hdfc-small-cap-fund-direct-growth__sid__1732795104038.pdf",
+    "file": "data/raw/sid/hdfc-small-cap-fund-direct-growth__sid__1732795104038.pdf",
     "bytes": 944780,
     "text_chars": null,
     "content_sha256": "6b4bc1a76d0a28b27644e546755694c12907ce9d391afdc858795f58370d03df"
@@ -141,13 +141,13 @@
     "category": "Regulatory Guidance",
     "doc_type": "guidance",
     "render": "auto",
-    "scraped_at": "2026-06-28T09:53:02+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:49+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\shared-amfi__guidance__knowledge-center-info.html",
+    "file": "data/raw/faq/shared-amfi__guidance__knowledge-center-info.html",
     "bytes": 158390,
     "text_chars": 2579,
-    "content_sha256": "761a44b0e04f94311b64545bc510869b222f224141e2a40a3019a9484902fe21"
+    "content_sha256": "319657be6fdd0150621561b54a50f3034bf08fec78cd67e33f7ace441e8607ac"
   },
   {
     "url": "https://www.amfiindia.com/investor-corner/knowledge-center/nav-sale-repurchase-price.html",
@@ -156,13 +156,13 @@
     "category": "Regulatory Guidance",
     "doc_type": "guidance",
     "render": "auto",
-    "scraped_at": "2026-06-28T09:53:03+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:21:51+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\shared-amfi__guidance__nav-sale-repurchase-price.html",
-    "bytes": 138578,
+    "file": "data/raw/faq/shared-amfi__guidance__nav-sale-repurchase-price.html",
+    "bytes": 139041,
     "text_chars": 830,
-    "content_sha256": "ff393e19087e0b1411bce6108e4ce16a37eb977f30256e34a60945c85489878b"
+    "content_sha256": "88e90aa27ef8348e3487e9579acb211f08008f8443c99f1a3e6dfff65085e36a"
   },
   {
     "url": "https://www.sebi.gov.in/sebi_data/faqfiles/sep-2024/1727242783639.pdf",
@@ -171,10 +171,10 @@
     "category": "Regulatory Guidance",
     "doc_type": "faq",
     "render": "pdf",
-    "scraped_at": "2026-06-28T09:53:16+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:22:09+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\shared-sebi__faq__1727242783639.pdf",
+    "file": "data/raw/faq/shared-sebi__faq__1727242783639.pdf",
     "bytes": 251789,
     "text_chars": null,
     "content_sha256": "19c8112711530dd769b95bdc73e298342ac6ee62d047dc4e97bf6515dd2953ed"
@@ -186,13 +186,13 @@
     "category": "Investor Education",
     "doc_type": "guidance",
     "render": "auto",
-    "scraped_at": "2026-06-28T09:53:17+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:22:11+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\shared-sebi__guidance__understanding-mf.html",
-    "bytes": 14291,
+    "file": "data/raw/faq/shared-sebi__guidance__understanding-mf.html",
+    "bytes": 14080,
     "text_chars": 3144,
-    "content_sha256": "175f7662028959a5779a97953737730ad3e138338412e30aabcaa9e3c1849868"
+    "content_sha256": "5948c9a6bc76115d64367695c3847067adea822bc6bf48033ca7107fad537d05"
   },
   {
     "url": "https://investor.sebi.gov.in/iematerial.html",
@@ -201,13 +201,13 @@
     "category": "Investor Education",
     "doc_type": "guidance",
     "render": "auto",
-    "scraped_at": "2026-06-28T09:53:17+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:22:13+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\shared-sebi__guidance__iematerial.html",
-    "bytes": 147142,
+    "file": "data/raw/faq/shared-sebi__guidance__iematerial.html",
+    "bytes": 145812,
     "text_chars": 3565,
-    "content_sha256": "869ed029d5afa1578846493cc5cada1543bb1b9b5138c14d2f15af5c500ffb63"
+    "content_sha256": "091ae2a3af292b764a92d5373a90fc08d1e9bd3a4110dfeb4ff322afac2cb5df"
   },
   {
     "url": "https://investor.sebi.gov.in/exit_load.html",
@@ -216,12 +216,12 @@
     "category": "Investor Education",
     "doc_type": "guidance",
     "render": "auto",
-    "scraped_at": "2026-06-28T09:53:20+00:00",
-    "last_updated": "2026-06-28",
+    "scraped_at": "2026-07-05T11:22:15+00:00",
+    "last_updated": "2026-07-05",
     "status": "ok",
-    "file": "data\\raw\\faq\\shared-sebi__guidance__exit-load.html",
-    "bytes": 14239,
+    "file": "data/raw/faq/shared-sebi__guidance__exit-load.html",
+    "bytes": 14012,
     "text_chars": 2549,
-    "content_sha256": "070b1f15e967486a00d1b513c6dbe7c82edf4d7ddbd4a1dc87475527b450ca3b"
+    "content_sha256": "a26175495777956602cd8f586aa2c18961f136fcb8eb926cd98061b3671b39ec"
   }
 ]
