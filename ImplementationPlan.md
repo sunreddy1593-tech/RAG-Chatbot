@@ -13,7 +13,7 @@ This document breaks down the build of the **HDFC Mutual Fund Facts-Only FAQ Ass
 | 4 | Retrieval Layer | Query embedding + similarity search | Working retriever |
 | 5 | Intent Classification & Refusal | Filter advisory queries | Classifier + refusal handler |
 | 6 | LLM Response Generation | Grounded, compliant answers | Formatted RAG responses |
-| 7 | User Interface | Streamlit chat app | Deployable UI |
+| 7 | User Interface | Streamlit chat app styled to the Stitch design system | Deployable UI (5 screen states) |
 | 8 | Compliance & Testing | Validate safety & accuracy | Test suite + report |
 | 9 | Documentation & Delivery | README, deployment, handoff | Final deliverables |
 | 10 | Scheduled Data Refresh | Auto re-run ingestion daily to keep the corpus fresh | GitHub Actions workflow + atomic re-index |
@@ -271,7 +271,7 @@ Phase 6 is split into four cohesive modules rather than one monolith, so the rat
 
 ## Phase 7 — User Interface
 
-**Goal:** Deliver a minimal, compliant chat interface.
+**Goal:** Deliver a minimal, compliant chat interface, styled to the **Stitch-generated design system** (`stitch_mutual_fund_faq_assistant/`).
 
 **Tasks:**
 - [x] Implement `ui/app.py` (Streamlit):
@@ -280,20 +280,47 @@ Phase 6 is split into four cohesive modules rather than one monolith, so the rat
   - Chat input + response display (answer, source link, footer)
   - Persistent disclaimer banner: "Facts-only. No investment advice."
 - [x] Wire UI to `rag/pipeline.py`
+- [x] **Adopt the Stitch design system** (from `stitch_mutual_fund_faq_assistant/stewardship_interface/DESIGN.md`) — a `.streamlit/config.toml` `[theme]` (Inter base, Trustworthy-Blue `primaryColor`, Soft-Neutral-Gray background, White surfaces) plus a scoped CSS block injected once via `st.markdown(..., unsafe_allow_html=True)`:
+  - Palette: Deep Navy `#1E2A54` (authority/user bubble), Trustworthy Blue `#2F6BFF` (primary action/focus), Soft Neutral Gray `#F5F7FA` canvas, White `#FFFFFF` surfaces, Verified Green `#1B8A5A` (source chips), Warning Amber `#B7791F` on `#FEF3C7` (disclaimers/warnings)
+  - Typography: **Inter** (loaded via Google Fonts `@import`) across the app, semi-bold tight-tracked headlines, 1.5× body line-height, small tracked-out uppercase labels for metadata
+  - Shape/elevation: 8–12px rounded surfaces, pill (`full`) chips, 1px `#E2E8F0` borders on cards, soft `0 4px 12px rgba(30,42,84,0.05)` shadow on chat bubbles
+- [x] **Build the 5 Stitch screen states** (see mapping table below) as styled render paths driven by the pipeline response type (`_classify_state` keys off the stable `rag/prompts.py` template leads), not new logic
+- [x] Wire the sidebar to the Stitch **Stewardship** layout: MF Assistant identity block, "In scope" scheme list, disclaimer card, "Corpus last updated" line, Clear Chat
+
+#### Stitch Screen → Pipeline State Mapping
+
+The five Google-Stitch screens each correspond to a response branch the pipeline already emits, so the UI only needs to **style** each branch — no new backend behaviour:
+
+| # | Stitch screen (`code.html`) | Pipeline / app trigger | Styling treatment |
+|---|-----------------------------|------------------------|-------------------|
+| 1 | `1._welcome_state` | first load, empty transcript | Welcome card + scope note + 3 pill suggestion chips over the input |
+| 2 | `2._factual_answer` | grounded factual answer | White assistant bubble (navy text), green **Source: `<domain>`** chip + "Last updated from sources: `<date>`" footer |
+| 3 | `3._refusal_state` | advisory query refused (Phase 5) | White bubble, 2px amber left-border, "Regulatory Notice", AMFI/SEBI educational link button + disclaimer |
+| 4 | `4._out_of_scope_state` | out-of-scope AMC/"not in corpus" (Phase 4/6) | Subtle gray italic bubble, "outside my scope" scope-limitation message |
+| 5 | `5._configuration_warning_state` | missing `GROQ_API_KEY` / absent `vectorstore/index/` | Dismissible amber warning banner above the transcript (edge 10.1 / 10.2) |
+
+The user turn is a right-aligned Deep Navy bubble with white text in every screen; the persistent amber disclaimer banner and the 280px sidebar are shared chrome across all five.
 
 #### UI Notes (as implemented)
 
 - **Chat-native layout.** Uses `st.chat_message` + `st.chat_input` with the transcript held in `st.session_state.messages`. The welcome message and the three clickable example buttons show only before the first turn (then collapse to keep the chat clean); a **Clear chat** button in the sidebar resets the session.
-- **Single source of truth for output.** The pipeline already returns the fully-formatted string (answer body + one `Source:` link + `Last updated` footer, or a refusal/scope/busy/error template), so the UI just renders it — no formatting logic is duplicated in the view layer.
-- **Persistent disclaimer.** `st.info(DISCLAIMER)` is rendered on every run (top banner) and also pinned in the sidebar, so "Facts-only. No investment advice." is always visible.
-- **Graceful startup + errors.** Missing `GROQ_API_KEY` or an absent `vectorstore/index/` surface as friendly `st.warning` banners rather than failures (edge 10.1 / 10.2), and every `pipeline.answer` call is wrapped so an unexpected exception shows a safe message and is logged server-side, never dumped to the user (edge 8.6).
-- **No PII surface.** The UI has no login and no personal-data fields; queries live only in transient session state and are never persisted (edge 8.4 / 9.3). `st.markdown` renders with HTML escaping on, so echoed input can't inject markup (edge 8.7).
+- **Single source of truth for output.** The pipeline already returns the fully-formatted string (answer body + one `Source:` link + `Last updated` footer, or a refusal/scope/busy/error template), so the UI just renders it — the styling classifies which of the 5 screen states to apply from the returned text/response type, but does **not** re-format the answer.
+- **Persistent disclaimer.** `st.info(DISCLAIMER)` is rendered on every run (top banner) and also pinned in the sidebar, so "Facts-only. No investment advice." is always visible — mapped to the Stitch amber `#FEF3C7` / `#B7791F` disclaimer banner that is fixed across all five screens.
+- **Graceful startup + errors.** Missing `GROQ_API_KEY` or an absent `vectorstore/index/` surface as friendly `st.warning` banners rather than failures (edge 10.1 / 10.2) — this is the Stitch **configuration-warning** screen (screen 5); every `pipeline.answer` call is wrapped so an unexpected exception shows a safe message and is logged server-side, never dumped to the user (edge 8.6).
+- **No PII surface.** The UI has no login and no personal-data fields; queries live only in transient session state and are never persisted (edge 8.4 / 9.3). `st.markdown` renders with HTML escaping on, so echoed input can't inject markup (edge 8.7). The Stitch mockups' decorative `attach_file` / "Sync across devices" affordances are intentionally **dropped** to preserve the no-upload, stateless, PII-free surface.
 
-**Deliverable:** Running Streamlit app.
+#### Styling Approach (Streamlit ≠ static HTML)
 
-**Acceptance Criteria:** `streamlit run ui/app.py` launches; example questions return valid answers; disclaimer always visible. *(Met: app boots headless — Uvicorn serves HTTP 200 and `/_stcore/health` returns `ok`; module imports cleanly; disclaimer banner renders every run. Live answer quality depends on the built index + `GROQ_API_KEY`.)*
+The Stitch output is Tailwind-CDN HTML; Streamlit renders its own widget DOM, so the screens are **adapted, not copied**:
+- The design tokens (colors/type/spacing from `DESIGN.md`) drive a `.streamlit/config.toml` `[theme]` (base font Inter, `primaryColor` = Trustworthy Blue, background = Soft Neutral Gray) plus a small scoped CSS block injected once at startup for chat-bubble corners, source chips, and the amber banner.
+- Chat bubbles use `st.chat_message` containers with per-role CSS (user = navy/right, assistant = white/left with the state-specific border) rather than the raw Tailwind `<div>`s.
+- Material Symbols icons from the mockups are substituted with Streamlit-native equivalents (`st.info`/`st.warning` icons, unicode/emoji, or inline SVG) to avoid an external icon-font dependency on Community Cloud.
 
-**Dependencies:** Phase 6
+**Deliverable:** Running Streamlit app that renders all five Stitch screen states with the Stitch design system applied.
+
+**Acceptance Criteria:** `streamlit run ui/app.py` launches; example questions return valid answers; disclaimer always visible; each of the five pipeline branches (welcome / factual / refusal / out-of-scope / config-warning) renders in its corresponding Stitch style. *(Met: the styled app boots headless — Uvicorn serves HTTP 200 and `/_stcore/health` returns `ok`; module imports cleanly; the Stitch theme (`.streamlit/config.toml` + injected CSS) and all five screen states are wired, with `_classify_state` verified to route factual/refusal/scope/not-in-corpus/busy/empty responses to the correct Stitch treatment; disclaimer banner renders every run. Live answer quality depends on the built index + `GROQ_API_KEY`.)*
+
+**Dependencies:** Phase 6, and the Stitch design assets in `stitch_mutual_fund_faq_assistant/`
 
 ---
 

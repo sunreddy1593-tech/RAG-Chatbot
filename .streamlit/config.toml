@@ -1,0 +1,12 @@
+# Streamlit theme mapped to the Stitch "Stewardship" design system
+# (stitch_mutual_fund_faq_assistant/stewardship_interface/DESIGN.md).
+[theme]
+base = "light"
+primaryColor = "#2F6BFF"          # Trustworthy Blue — primary action / focus
+backgroundColor = "#F5F7FA"       # Soft Neutral Gray — app canvas
+secondaryBackgroundColor = "#FFFFFF"  # White — cards / sidebar surfaces
+textColor = "#191C1E"             # on-surface
+font = "sans serif"               # Inter is loaded via CSS @import in ui/app.py
+
+[server]
+headless = true
