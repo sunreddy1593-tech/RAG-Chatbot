@@ -38,17 +38,19 @@ INDEX_BACKUPS_DIR = VECTORSTORE_DIR / "backups"
 # LLM (Groq)
 # --------------------------------------------------------------------------- #
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+# Groq retired llama-3.3-70b-versatile (2026-08-16) and llama3-8b-8192
+# (2025-08-30). Current free/developer replacements:
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 # Lighter/cheaper model used as the degrade target when the primary model's
 # daily quota is exhausted or on sustained 429s.
-GROQ_MODEL_FALLBACK = os.getenv("GROQ_MODEL_FALLBACK", "llama3-8b-8192")
+GROQ_MODEL_FALLBACK = os.getenv("GROQ_MODEL_FALLBACK", "openai/gpt-oss-20b")
 LLM_TEMPERATURE = 0.0  # deterministic, facts-only
 # A grounded, <=3-sentence answer needs little completion room; keeping this
 # small protects the per-minute (TPM) and per-day (TPD) token budgets below.
 LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", "256"))
 
 # --------------------------------------------------------------------------- #
-# Groq free-tier rate limits (llama-3.3-70b-versatile)
+# Groq free-tier rate limits (openai/gpt-oss-120b class)
 # --------------------------------------------------------------------------- #
 # Four independent buckets; the first to run dry throttles the request. These
 # are surfaced here so they can be raised for a paid tier without code changes.

@@ -9,7 +9,7 @@ limits and to degrade gracefully (see ImplementationPlan.md §Phase 6):
 - **429 backoff** — exponential backoff + jitter, honouring Groq's
   ``Retry-After`` header, capped at ``config.GROQ_MAX_RETRIES``.
 - **Model degrade** — on sustained 429 / 5xx the primary model
-  (``llama-3.3-70b-versatile``) falls back to ``llama3-8b-8192``.
+  (``openai/gpt-oss-120b``) falls back to ``openai/gpt-oss-20b``.
 - **Fail fast, never fabricate** — a missing key or a dead backend raises rather
   than returning an ungrounded answer (edge 6.1 / 6.3).
 """

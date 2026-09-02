@@ -1,6 +1,6 @@
 """Client-side rate limiting for the Groq free tier (Phase 6).
 
-Groq meters ``llama-3.3-70b-versatile`` on four independent buckets — requests
+Groq meters the primary chat model on four independent buckets — requests
 per minute/day and tokens per minute/day (see ImplementationPlan.md §Phase 6).
 The first bucket to run dry throttles the request, so we track all four with a
 single sliding window of ``(timestamp, tokens)`` events and refuse locally

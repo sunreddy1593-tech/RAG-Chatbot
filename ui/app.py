@@ -560,9 +560,9 @@ def main() -> None:
     query = example_clicked or typed
     if query and query.strip():
         _handle_query(query.strip())
-        # Rerun so the welcome/examples block disappears after the first turn.
-        if example_clicked:
-            st.rerun()
+        # Always rerun so the new turn is replayed *above* st.chat_input.
+        # Drawing bubbles after chat_input on the same run often never shows.
+        st.rerun()
 
 
 if __name__ == "__main__":

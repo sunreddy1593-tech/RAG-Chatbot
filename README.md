@@ -80,7 +80,7 @@ ONLINE (answer a query)
   default for low-resource/free-tier hosts). Swap to `bge-large-en-v1.5`
   (1024-dim, higher recall) on a bigger host and rebuild the index.
 - **Vector store:** ChromaDB (cosine space), persisted to `vectorstore/index/`.
-- **LLM:** Groq API — primary `llama-3.3-70b-versatile`, fallback `llama3-8b-8192`.
+- **LLM:** Groq API — primary `openai/gpt-oss-120b`, fallback `openai/gpt-oss-20b`.
 - **Compliance:** three layers — intent classifier → strict system prompt →
   formatter guard — plus client-side Groq rate-limiting (RPM/RPD/TPM/TPD).
 - **UI:** Streamlit chat with a persistent disclaimer banner.
@@ -254,8 +254,8 @@ All tunables live in [`config.py`](./config.py) and can be overridden via `.env`
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `GROQ_API_KEY` | — | Groq key (required only for generation) |
-| `GROQ_MODEL` | `llama-3.3-70b-versatile` | Primary LLM |
-| `GROQ_MODEL_FALLBACK` | `llama3-8b-8192` | Degrade target on quota/429 |
+| `GROQ_MODEL` | `openai/gpt-oss-120b` | Primary LLM |
+| `GROQ_MODEL_FALLBACK` | `openai/gpt-oss-20b` | Degrade target on quota/429 |
 | `EMBEDDING_MODEL` | `BAAI/bge-small-en-v1.5` | Local embedding model (use `bge-large-en-v1.5` on a bigger host + rebuild) |
 | `LLM_MAX_TOKENS` | `256` | Completion cap (≤3-sentence answers) |
 | `MAX_CONTEXT_CHUNKS` / `MAX_CONTEXT_TOKENS` | `3` / `2000` | Per-call context budget |
