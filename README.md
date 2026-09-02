@@ -360,7 +360,9 @@ The app is a standard Streamlit application. Two common options:
 
 1. Push the repo to GitHub (done — the app deploys straight from `main`).
 2. Create a new app on <https://share.streamlit.io> pointing at `ui/app.py` on the
-   `main` branch.
+   `main` branch. In **Advanced settings**, set **Python version to 3.12**
+   (Cloud currently defaults to 3.14, which pulls a `transformers` 5.x
+   vision import that needs `torchvision` — we don't use vision models).
 3. Add `GROQ_API_KEY` under **App settings → Secrets** (paste it in TOML form:
    `GROQ_API_KEY = "gsk_..."`).
 4. The vector index (`vectorstore/index/`) is **tracked in git**, so it deploys
