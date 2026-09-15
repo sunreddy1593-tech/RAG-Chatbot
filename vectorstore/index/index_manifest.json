@@ -2,8 +2,8 @@
   "collection": "mf_faq_corpus",
   "embedding_model": "BAAI/bge-small-en-v1.5",
   "embedding_dim": 384,
-  "vectors": 670,
-  "chunks": 670,
+  "vectors": 671,
+  "chunks": 671,
   "index_dir": "vectorstore/index",
-  "built_at": "2026-09-14T10:25:09+00:00"
+  "built_at": "2026-09-15T09:52:22+00:00"
 }
