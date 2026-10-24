@@ -1,11 +1,11 @@
 {
   "status": "ok",
-  "finished_at": "2026-10-23T09:50:30+00:00",
+  "finished_at": "2026-10-24T09:23:41+00:00",
   "documents": 15,
   "chunks": 668,
   "vectors": 668,
   "embedding_model": "BAAI/bge-small-en-v1.5",
-  "fingerprint": "fec885659ab48caf45619ac02d974b6cc0a7bd568194a5331a052ce9f92964b4",
-  "index_backup": "vectorstore/backups/index_20261023T094820Z",
-  "elapsed_seconds": 195.2
+  "fingerprint": "19ede632bce8712bbc7ce08d9c28333415dbd7cfc5dcdfddd894d5f4c0e233bd",
+  "index_backup": "vectorstore/backups/index_20261024T092132Z",
+  "elapsed_seconds": 196.1
 }
